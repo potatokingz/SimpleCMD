@@ -1,6 +1,6 @@
 # SimpleCMD
 
-SimpleCMD is a command-line interface (CLI) tool written in Python. It emulates basic commands of the Windows Command Prompt (CMD), with a simple and user-friendly design. It supports commands for file management, system info, network diagnostics, and Python script execution. It also includes colorful output using `colorama` for better readability.
+SimpleCMD is a command-line interface (CLI) tool written in Python. It emulates basic commands of the Windows Command Prompt (CMD), with a simple and user-friendly design. It supports commands for file management, system info, network diagnostics, and Python script execution. It also includes colorful output using `colorama` for better readability. Download CMD.exe from below if you have issues with python :3 This Project Is In Alpha expect little bugs!
 
 ## Features
 
