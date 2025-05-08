@@ -4,56 +4,69 @@ import datetime
 import subprocess
 import platform
 import socket
+from colorama import init, Fore, Style
+
+init(autoreset=True)
+
+def c(text, color):
+    return getattr(Fore, color.upper()) + text + Style.RESET_ALL
+
+def banner():
+    print(c("""
+  _____ _                 _       ____  __  __ ____  
+ / ____| |               | |     / __ \\|  \\/  |  _ \\ 
+| (___ | |__   ___   ___ | | __ | |  | | \\  / | |_) |
+ \\___ \\| '_ \\ / _ \\ / _ \\| |/ / | |  | | |\\/| |  _ < 
+ ____) | | | | (_) | (_) |   <  | |__| | |  | | |_) |
+|_____/|_| |_|\\___/ \\___/|_|\\_\\  \\____/|_|  |_|____/ 
+
+     Made By Potato King (https://bit.ly/potatokingz)
+""", "cyan"))
 
 def help_command():
-    print("""
-SimpleCMD Commands:
+    print(c("SimpleCMD Commands:\n", "cyan"))
+    print(c("Basic File Operations:", "yellow"))
+    print("  ls             List files")
+    print("  cd [folder]    Change directory")
+    print("  pwd            Show current folder")
+    print("  mkdir [name]   Make a folder")
+    print("  del [file]     Delete a file")
+    print("  rmdir [name]   Delete a folder")
+    print("  copy [src] [dst]  Copy a file")
+    print("  move [src] [dst]  Move a file")
+    print("  rename [old] [new] Rename a file\n")
+    print(c("System Tools:", "yellow"))
+    print("  clear          Clear the screen")
+    print("  time           Show current date and time")
+    print("  sysinfo        Show basic system info")
+    print("  tasklist       Show running tasks")
+    print("  whoami         Show your current username\n")
+    print(c("Network Tools:", "yellow"))
+    print("  ping [host]    Ping a server")
+    print("  ipconfig       Show your IP address info")
+    print("  tracert [host] Trace route to a host\n")
+    print(c("Script Tools:", "yellow"))
+    print("  run [file.py]  Run a Python script\n")
+    print(c("General:", "yellow"))
+    print("  help           Show this help message")
+    print("  exit           Exit SimpleCMD\n")
 
-Basic File Operations:
-  ls             List files
-  cd [folder]    Change directory
-  pwd            Show current folder
-  mkdir [name]   Make a folder
-  del [file]     Delete a file
-  rmdir [name]   Delete a folder
-  copy [src] [dst]  Copy a file
-  move [src] [dst]  Move a file
-  rename [old] [new] Rename a file
+def success(msg): print(c(msg, "green"))
+def error(msg): print(c("Error: " + msg, "red"))
+def info(msg): print(c(msg, "cyan"))
 
-System Tools:
-  clear          Clear the screen
-  time           Show current date and time
-  sysinfo        Show basic system info
-  tasklist       Show running tasks
-  whoami         Show your current username
-
-Network Tools:
-  ping [host]    Ping a server
-  ipconfig       Show your IP address info
-  tracert [host] Trace route to a host
-
-Script Tools:
-  run [file.py]  Run a Python script
-
-General:
-  help           Show this help message
-  exit           Exit SimpleCMD
-""")
-
-# ==== BASIC ====
 def ls_command(): print("\n".join(os.listdir()))
-def cd_command(args): os.chdir(args[0]) if args else print("Usage: cd [folder]")
+def cd_command(args): os.chdir(args[0]) if args else error("Usage: cd [folder]")
 def pwd_command(): print(os.getcwd())
 def clear_command(): os.system('cls' if os.name == 'nt' else 'clear')
 def time_command(): print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-def mkdir_command(args): os.makedirs(args[0], exist_ok=True) if args else print("Usage: mkdir [name]")
-def del_command(args): os.remove(args[0]) if args else print("Usage: del [file]")
-def rmdir_command(args): shutil.rmtree(args[0]) if args else print("Usage: rmdir [name]")
-def copy_command(args): shutil.copy(args[0], args[1]) if len(args) >= 2 else print("Usage: copy [src] [dst]")
-def move_command(args): shutil.move(args[0], args[1]) if len(args) >= 2 else print("Usage: move [src] [dst]")
-def rename_command(args): os.rename(args[0], args[1]) if len(args) >= 2 else print("Usage: rename [old] [new]")
+def mkdir_command(args): os.makedirs(args[0], exist_ok=True) if args else error("Usage: mkdir [name]")
+def del_command(args): os.remove(args[0]) if args else error("Usage: del [file]")
+def rmdir_command(args): shutil.rmtree(args[0]) if args else error("Usage: rmdir [name]")
+def copy_command(args): shutil.copy(args[0], args[1]) if len(args) >= 2 else error("Usage: copy [src] [dst]")
+def move_command(args): shutil.move(args[0], args[1]) if len(args) >= 2 else error("Usage: move [src] [dst]")
+def rename_command(args): os.rename(args[0], args[1]) if len(args) >= 2 else error("Usage: rename [old] [new]")
 
-# ==== SYSTEM INFO ====
 def sysinfo_command():
     print("System:", platform.system(), platform.release())
     print("Machine:", platform.machine())
@@ -66,39 +79,27 @@ def tasklist_command():
 def whoami_command():
     print("Current user:", os.getlogin())
 
-# ==== NETWORK ====
-def ping_command(args):
-    if args:
-        os.system(f"ping {args[0]}")
-    else:
-        print("Usage: ping [host]")
+def ping_command(args): os.system(f"ping {args[0]}") if args else error("Usage: ping [host]")
+def ipconfig_command(): os.system("ipconfig" if os.name == "nt" else "ifconfig")
+def tracert_command(args): os.system(f"tracert {args[0]}" if os.name == "nt" else f"traceroute {args[0]}") if args else error("Usage: tracert [host]")
 
-def ipconfig_command():
-    os.system("ipconfig" if os.name == "nt" else "ifconfig")
-
-def tracert_command(args):
-    if args:
-        os.system(f"tracert {args[0]}" if os.name == "nt" else f"traceroute {args[0]}")
-    else:
-        print("Usage: tracert [host]")
-
-# ==== SCRIPT RUNNER ====
 def run_command(args):
     if not args:
-        print("Usage: run [filename.py]")
+        error("Usage: run [filename.py]")
         return
     filename = args[0]
     if not filename.endswith(".py") or not os.path.exists(filename):
-        print("Python file not found.")
+        error("Python file not found.")
         return
     os.system(f"python \"{filename}\"")
 
-# ==== MAIN ====
 def main():
-    print("Welcome to SimpleCMD! Type 'help' for commands.")
+    clear_command()
+    banner()
+    info("Welcome to SimpleCMD! Type 'help' for commands.")
     while True:
         try:
-            raw = input(">>> ").strip()
+            raw = input(c(">>> ", "magenta")).strip()
             if not raw: continue
             parts = raw.split()
             cmd, args = parts[0], parts[1:]
@@ -124,12 +125,11 @@ def main():
                 case "tracert": tracert_command(args)
                 case "run": run_command(args)
                 case "exit":
-                    print("Goodbye!")
+                    info("Goodbye!")
                     break
-                case _:
-                    print(f"Unknown command: '{cmd}'. Try 'help'")
+                case _: error(f"Unknown command: '{cmd}'. Try 'help'")
         except Exception as e:
-            print("Error:", str(e))
+            error(str(e))
 
 if __name__ == "__main__":
     main()
