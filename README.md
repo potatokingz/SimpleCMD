@@ -83,3 +83,8 @@ You can install the necessary dependencies by running:
 
 ```bash
 pip install -r requirements.txt
+```
+
+## Credits:
+
+Made by Potato King.
