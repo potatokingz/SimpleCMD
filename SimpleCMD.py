@@ -13,18 +13,20 @@ def c(text, color):
 
 def banner():
     print(c("""
-  _____ _                 _       ____  __  __ ____  
- / ____| |               | |     / __ \\|  \\/  |  _ \\ 
-| (___ | |__   ___   ___ | | __ | |  | | \\  / | |_) |
- \\___ \\| '_ \\ / _ \\ / _ \\| |/ / | |  | | |\\/| |  _ < 
- ____) | | | | (_) | (_) |   <  | |__| | |  | | |_) |
-|_____/|_| |_|\\___/ \\___/|_|\\_\\  \\____/|_|  |_|____/ 
-
-     Made By Potato King (https://bit.ly/potatokingz)
+ ________  ___  _____ ______   ________  ___       _______           ________  _____ ______   ________     
+|\   ____\|\  \|\   _ \  _   \|\   __  \|\  \     |\  ___ \         |\   ____\|\   _ \  _   \|\   ___ \    
+\ \  \___|\ \  \ \  \\\__\ \  \ \  \|\  \ \  \    \ \   __/|        \ \  \___|\ \  \\\__\ \  \ \  \_|\ \   
+ \ \_____  \ \  \ \  \\|__| \  \ \   ____\ \  \    \ \  \_|/__       \ \  \    \ \  \\|__| \  \ \  \ \\ \  
+  \|____|\  \ \  \ \  \    \ \  \ \  \___|\ \  \____\ \  \_|\ \       \ \  \____\ \  \    \ \  \ \  \_\\ \ 
+    ____\_\  \ \__\ \__\    \ \__\ \__\    \ \_______\ \_______\       \ \_______\ \__\    \ \__\ \_______\
+   |\_________\|__|\|__|     \|__|\|__|     \|_______|\|_______|        \|_______|\|__|     \|__|\|_______|
+   \|_________|                                                                                             
+                                                                                                           
 """, "cyan"))
 
 def help_command():
     print(c("SimpleCMD Commands:\n", "cyan"))
+    
     print(c("Basic File Operations:", "yellow"))
     print("  ls             List files")
     print("  cd [folder]    Change directory")
@@ -34,22 +36,26 @@ def help_command():
     print("  rmdir [name]   Delete a folder")
     print("  copy [src] [dst]  Copy a file")
     print("  move [src] [dst]  Move a file")
-    print("  rename [old] [new] Rename a file\n")
-    print(c("System Tools:", "yellow"))
+    print("  rename [old] [new] Rename a file")
+    
+    print(c("\nSystem Tools:", "yellow"))
     print("  clear          Clear the screen")
     print("  time           Show current date and time")
     print("  sysinfo        Show basic system info")
     print("  tasklist       Show running tasks")
-    print("  whoami         Show your current username\n")
-    print(c("Network Tools:", "yellow"))
+    print("  whoami         Show your current username")
+    
+    print(c("\nNetwork Tools:", "yellow"))
     print("  ping [host]    Ping a server")
     print("  ipconfig       Show your IP address info")
-    print("  tracert [host] Trace route to a host\n")
-    print(c("Script Tools:", "yellow"))
-    print("  run [file.py]  Run a Python script\n")
-    print(c("General:", "yellow"))
+    print("  tracert [host] Trace route to a host")
+    
+    print(c("\nScript Tools:", "yellow"))
+    print("  run [file.py]  Run a Python script")
+    
+    print(c("\nGeneral:", "yellow"))
     print("  help           Show this help message")
-    print("  exit           Exit SimpleCMD\n")
+    print("  exit           Exit SimpleCMD")
 
 def success(msg): print(c(msg, "green"))
 def error(msg): print(c("Error: " + msg, "red"))
